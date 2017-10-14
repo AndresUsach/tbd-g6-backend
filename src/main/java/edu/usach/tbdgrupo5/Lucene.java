@@ -27,7 +27,6 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
@@ -52,7 +51,7 @@ public class Lucene {
 			IndexWriter writer = new IndexWriter(dir,iwc);
 			DBCursor cursor = this.mongoConnection.getTweets();
 			Document doc = null;
-			DBObject cur2 = cursor.next();
+			//DBObject cur2 = cursor.next();
 			
 			while (cursor.hasNext()) {
 			      DBObject cur = cursor.next();
@@ -70,7 +69,7 @@ public class Lucene {
 			   }
 			cursor.close();
 			writer.close();
-			System.out.println(cur2);
+			//System.out.println(cur2);
 		}
 		catch(IOException ioe){
 				System.out.println(" caught a "+ ioe.getClass() + "\n with message: " + ioe.getMessage());
@@ -110,5 +109,6 @@ public class Lucene {
 	public List<String> getIdList(){
 		return this.idList;
 	}
+	
 
 }
