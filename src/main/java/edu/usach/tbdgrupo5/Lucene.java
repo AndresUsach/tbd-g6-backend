@@ -1,10 +1,9 @@
 package edu.usach.tbdgrupo5;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,68 +34,31 @@ import com.mongodb.DBObject;
 
 
 
+
+
 public class Lucene {
-	public Lucene(){
-		
+	private MongoConnection mongoConnection;
+	private List<String> idList = null;
+	public Lucene(MongoConnection mongoConnection){
+		this.mongoConnection = mongoConnection;
 	}
 	public void indexCreate(){
 		try{
 			Directory dir = FSDirectory.open(Paths.get("indice/"));
 			Analyzer analyzer = new StandardAnalyzer();
 			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
-			iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
+			iwc.setOpenMode(OpenMode.CREATE);
 			
 			IndexWriter writer = new IndexWriter(dir,iwc);
-			String ruta = "libros/";
-			if(Files.isDirectory(Paths.get(ruta))){
-				File directorioLibros = new File(ruta);
-				File[] libros = directorioLibros.listFiles();
-				Document doc = null;
-				for (File f: libros){
-					if (f.isFile() && f.canRead() && f.getName().endsWith(".txt")){
-						doc = new Document();
-						doc.add(new StringField("path",f.toString(),Field.Store.YES));
-						FileReader fr = new FileReader(f);
-						doc.add(new TextField("contenido",fr));
-						if (writer.getConfig().getOpenMode() == OpenMode.CREATE){
-							System.out.println("Indexando el archivo: "+f.getName());
-							writer.addDocument(doc);
-						}
-						else{
-							System.out.println("Actualizando el archivo: "+f.getName());
-							writer.updateDocument(new Term("path"+f.toString()), doc);
-						}
-					}
-				}
-				
-				
-			}
-			writer.close();
-		}
-		catch(IOException ioe){
-				System.out.println(" caught a "+ ioe.getClass() + "\n with message: " + ioe.getMessage());
-			
-		}
-	}
-	public void indexTweets(MongoConnection mc){
-		try{
-			Directory dir = FSDirectory.open(Paths.get("indice/"));
-			Analyzer analyzer = new StandardAnalyzer();
-			IndexWriterConfig iwc = new IndexWriterConfig(analyzer);
-			iwc.setOpenMode(OpenMode.CREATE_OR_APPEND);
-			
-			IndexWriter writer = new IndexWriter(dir,iwc);
-			if(mc == null){
-				System.out.println("soy nullo");
-			}
-			DBCursor cursor = mc.getTweets();
+			DBCursor cursor = this.mongoConnection.getTweets();
 			Document doc = null;
 			DBObject cur2 = cursor.next();
 			
 			while (cursor.hasNext()) {
 			      DBObject cur = cursor.next();
 			      doc = new Document();
-			      doc.add(new StringField("contenido",(String) cur.get("text"),Field.Store.YES));
+			      doc.add(new StringField("id",cur.get("_id").toString(),Field.Store.YES));
+			      doc.add(new TextField("contenido", cur.get("text").toString(),Field.Store.YES));
 			      if (writer.getConfig().getOpenMode() == OpenMode.CREATE){
 						System.out.println("Indexando el tweet: "+cur.get("text")+"\n");
 						writer.addDocument(doc);
@@ -116,61 +78,37 @@ public class Lucene {
 		}
 		
 	}
-	public void indexSearchTweets(){
+	public void indexSearch(String Artista){
 		try{
 			IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("indice/")));
 			IndexSearcher searcher = new IndexSearcher(reader);
 			Analyzer analyzer = new StandardAnalyzer();
 			
 			QueryParser parser = new QueryParser("contenido",analyzer);
-			Query query = parser.parse("Wisin");
-			
+			Query query = parser.parse(Artista);
+			idList = new ArrayList<String>();
 			TopDocs result = searcher.search(query, 10);
 			ScoreDoc[] hits =result.scoreDocs;
-			System.out.println("hola estoy buscando\n");
 			for (int i=0; i<hits.length;i++){
 				Document doc = searcher.doc(hits[i].doc);
-				String tweet =doc.get("contenido");
-				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" path="+tweet);
+				idList.add(doc.get("id"));
+				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
 			}
 			reader.close();
+			
 			
 		}
 		
 		catch(IOException ex){
 			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
+			
 		}
 		catch(ParseException ex){
 			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
 		}
 	}
-	public void indexSearch() throws ParseException{
-		try{
-			IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("indice/")));
-			IndexSearcher searcher = new IndexSearcher(reader);
-			Analyzer analyzer = new StandardAnalyzer();
-			
-			QueryParser parser = new QueryParser("contenido",analyzer);
-			Query query = parser.parse("Harry Potter");
-			
-			TopDocs result = searcher.search(query, 10);
-			ScoreDoc[] hits =result.scoreDocs;
-			
-			for (int i=0; i<hits.length;i++){
-				Document doc = searcher.doc(hits[i].doc);
-				String path =doc.get("path");
-				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" path="+path);
-			}
-			reader.close();
-			
-		}
-		
-		catch(IOException ex){
-			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
-		}
-		catch(ParseException ex){
-			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
-		}
+	public List<String> getIdList(){
+		return this.idList;
 	}
 
 }

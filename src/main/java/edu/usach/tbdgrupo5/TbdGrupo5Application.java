@@ -16,8 +16,10 @@ public class TbdGrupo5Application {
 	public static void main(String[] args) {
 		/*MongoConnection mc = new MongoConnection("tweets", "tweetsPrueba");
 		mc.connect();
-		Lucene lucene = new Lucene();
-		lucene.indexTweets(mc);*/
+		Lucene lucene = new Lucene(mc);
+		lucene.indexCreate();
+		lucene.indexSearch("wisin");
+		System.out.println(lucene.getIdList());*/
 		SpringApplication.run(TbdGrupo5Application.class, args);
 	}
 }
