@@ -1,9 +1,10 @@
 package edu.usach.tbdgrupo5.entities;
 
 import java.io.Serializable;
-//import java.sql.Timestamp;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -12,26 +13,20 @@ import java.util.List;
  * 
  */
 @Entity
-@Table(name="artista")
 @NamedQuery(name="Artista.findAll", query="SELECT a FROM Artista a")
 public class Artista implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="idartista", unique=true, nullable=false)
 	private int idartista;
 
-	@Column(name="descripcion", nullable=false, length=45)
+	private int comentariosNegativos;
+
+	private int comentariosPositivos;
+
 	private String descripcion;
 
-	@Column(name="nombre", nullable=false, length=45)
 	private String nombre;
-
-	//bi-directional many-to-one association to Genero
-	@ManyToOne
-	@JsonIgnore
-	@JoinColumn(name="idgenero")
-	private Genero genero;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
@@ -39,9 +34,11 @@ public class Artista implements Serializable {
 	@JoinColumn(name="idusuario")
 	private Usuario usuario;
 
-	//bi-directional many-to-one association to Estadistica
-	@OneToMany(mappedBy="artista")
-	private List<Estadistica> estadisticas;
+	//bi-directional many-to-one association to Genero
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="idgenero")
+	private Genero genero;
 
 	//bi-directional many-to-many association to Keyword
 	@ManyToMany(mappedBy="artistas")
@@ -55,8 +52,24 @@ public class Artista implements Serializable {
 		return this.idartista;
 	}
 
-	public void setIdartista(int id_artista) {
-		this.idartista = id_artista;
+	public void setIdartista(int idartista) {
+		this.idartista = idartista;
+	}
+
+	public int getComentariosNegativos() {
+		return this.comentariosNegativos;
+	}
+
+	public void setComentariosNegativos(int comentariosNegativos) {
+		this.comentariosNegativos = comentariosNegativos;
+	}
+
+	public int getComentariosPositivos() {
+		return this.comentariosPositivos;
+	}
+
+	public void setComentariosPositivos(int comentariosPositivos) {
+		this.comentariosPositivos = comentariosPositivos;
 	}
 
 	public String getDescripcion() {
@@ -75,14 +88,6 @@ public class Artista implements Serializable {
 		this.nombre = nombre;
 	}
 
-	public Genero getGenero() {
-		return this.genero;
-	}
-
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
-
 	public Usuario getUsuario() {
 		return this.usuario;
 	}
@@ -91,26 +96,12 @@ public class Artista implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public List<Estadistica> getEstadisticas() {
-		return this.estadisticas;
+	public Genero getGenero() {
+		return this.genero;
 	}
 
-	public void setEstadisticas(List<Estadistica> estadisticas) {
-		this.estadisticas = estadisticas;
-	}
-
-	public Estadistica addEstadistica(Estadistica estadistica) {
-		getEstadisticas().add(estadistica);
-		estadistica.setArtista(this);
-
-		return estadistica;
-	}
-
-	public Estadistica removeEstadistica(Estadistica estadistica) {
-		getEstadisticas().remove(estadistica);
-		estadistica.setArtista(null);
-
-		return estadistica;
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	public List<Keyword> getKeywords() {

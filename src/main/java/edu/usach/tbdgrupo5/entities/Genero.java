@@ -2,8 +2,10 @@ package edu.usach.tbdgrupo5.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 
 /**
@@ -17,6 +19,10 @@ public class Genero implements Serializable {
 
 	@Id
 	private int idgenero;
+
+	private int comentariosNegativos;
+
+	private int comentariosPositivos;
 
 	private String nombre;
 
@@ -34,6 +40,22 @@ public class Genero implements Serializable {
 
 	public void setIdgenero(int idgenero) {
 		this.idgenero = idgenero;
+	}
+
+	public int getComentariosNegativos() {
+		return this.comentariosNegativos;
+	}
+
+	public void setComentariosNegativos(int comentariosNegativos) {
+		this.comentariosNegativos = comentariosNegativos;
+	}
+
+	public int getComentariosPositivos() {
+		return this.comentariosPositivos;
+	}
+
+	public void setComentariosPositivos(int comentariosPositivos) {
+		this.comentariosPositivos = comentariosPositivos;
 	}
 
 	public String getNombre() {
