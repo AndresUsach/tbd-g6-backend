@@ -2,6 +2,9 @@ package edu.usach.tbdgrupo5.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -21,6 +24,7 @@ public class Keyword implements Serializable {
 
 	//bi-directional many-to-many association to Artista
 	@ManyToMany
+	@JsonIgnore
 	@JoinTable(
 		name="keyword_artista"
 		, joinColumns={

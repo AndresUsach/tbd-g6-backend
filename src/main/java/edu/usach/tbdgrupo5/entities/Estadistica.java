@@ -2,6 +2,7 @@ package edu.usach.tbdgrupo5.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -22,6 +23,7 @@ public class Estadistica implements Serializable {
 
 	//bi-directional many-to-one association to Artista
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="idartista")
 	private Artista artista;
 

@@ -3,6 +3,7 @@ package edu.usach.tbdgrupo5.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -21,6 +22,7 @@ public class Genero implements Serializable {
 
 	//bi-directional many-to-one association to Artista
 	@OneToMany(mappedBy="genero")
+	@JsonIgnore
 	private List<Artista> artistas;
 
 	public Genero() {

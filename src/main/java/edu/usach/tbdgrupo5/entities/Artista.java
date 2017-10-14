@@ -1,6 +1,8 @@
 package edu.usach.tbdgrupo5.entities;
 
 import java.io.Serializable;
+//import java.sql.Timestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
@@ -10,24 +12,30 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="artista")
 @NamedQuery(name="Artista.findAll", query="SELECT a FROM Artista a")
 public class Artista implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name="idartista", unique=true, nullable=false)
 	private int idartista;
 
+	@Column(name="descripcion", nullable=false, length=45)
 	private String descripcion;
 
+	@Column(name="nombre", nullable=false, length=45)
 	private String nombre;
 
 	//bi-directional many-to-one association to Genero
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="idgenero")
 	private Genero genero;
 
 	//bi-directional many-to-one association to Usuario
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="idusuario")
 	private Usuario usuario;
 
@@ -37,6 +45,7 @@ public class Artista implements Serializable {
 
 	//bi-directional many-to-many association to Keyword
 	@ManyToMany(mappedBy="artistas")
+	@JsonIgnore
 	private List<Keyword> keywords;
 
 	public Artista() {
@@ -46,8 +55,8 @@ public class Artista implements Serializable {
 		return this.idartista;
 	}
 
-	public void setIdartista(int idartista) {
-		this.idartista = idartista;
+	public void setIdartista(int id_artista) {
+		this.idartista = id_artista;
 	}
 
 	public String getDescripcion() {
