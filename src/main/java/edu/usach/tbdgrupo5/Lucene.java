@@ -52,18 +52,18 @@ public class Lucene {
 			DBCursor cursor = this.mongoConnection.getTweets();
 			Document doc = null;
 			//DBObject cur2 = cursor.next();
-			
+			//System.out.println("Index);
 			while (cursor.hasNext()) {
 			      DBObject cur = cursor.next();
 			      doc = new Document();
 			      doc.add(new StringField("id",cur.get("_id").toString(),Field.Store.YES));
 			      doc.add(new TextField("contenido", cur.get("text").toString(),Field.Store.YES));
 			      if (writer.getConfig().getOpenMode() == OpenMode.CREATE){
-						System.out.println("Indexando el tweet: "+cur.get("text")+"\n");
+						//System.out.println("Indexando el tweet: "+cur.get("text")+"\n");
 						writer.addDocument(doc);
 					}
 				else{
-						System.out.println("Actualizando el tweet: "+cur.get("text")+"\n");
+						//System.out.println("Actualizando el tweet: "+cur.get("text")+"\n");
 						writer.updateDocument(new Term("contenido"+cur.get("text")), doc);
 				}
 			   }
@@ -86,7 +86,7 @@ public class Lucene {
 			QueryParser parser = new QueryParser("contenido",analyzer);
 			Query query = parser.parse(Artista);
 			idList = new ArrayList<String>();
-			TopDocs result = searcher.search(query, 10);
+			TopDocs result = searcher.search(query,100);
 			ScoreDoc[] hits =result.scoreDocs;
 			for (int i=0; i<hits.length;i++){
 				Document doc = searcher.doc(hits[i].doc);
