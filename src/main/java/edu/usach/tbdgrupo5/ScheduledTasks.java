@@ -9,7 +9,7 @@ public class ScheduledTasks {
 	public MongoConnection mc = new MongoConnection("tweets", "tweetsPrueba");
 	public Lucene lucene = new Lucene(mc);
 
-    @Scheduled(cron="*/600 * * * * *")
+    @Scheduled(cron="*/10 * * * * *")
     public void indexCreateTask() {
     	mc.connect();
     	System.out.println("[Tarea Programada]Indexando...");
@@ -19,9 +19,11 @@ public class ScheduledTasks {
     }
     @Scheduled(cron="*/10 * * * * *")
     public void indexSearchTask() {
-    	System.out.println("[Tarea Programada]Indexando...");
-    	lucene.indexSearch("bad bunny");
-    	System.out.println("[Tarea Programada]Fin de indexación.");
+    	System.out.println("[Tarea Programada]Buscando...");
+    	//lucene.indexSearch("bad bunny");
+    	System.out.println("Positivos: "+lucene.indexSearch2("bad bunny"));
+    	System.out.println("[Tarea Programada]Fin de bucar.");
+    	
         //System.out.println("hola fuí programado\n");
     }
 }

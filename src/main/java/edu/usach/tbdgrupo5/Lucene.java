@@ -58,6 +58,7 @@ public class Lucene {
 			      doc = new Document();
 			      doc.add(new StringField("id",cur.get("_id").toString(),Field.Store.YES));
 			      doc.add(new TextField("contenido", cur.get("text").toString(),Field.Store.YES));
+			      doc.add(new StringField("analysis",cur.get("analysis").toString(),Field.Store.YES));
 			      if (writer.getConfig().getOpenMode() == OpenMode.CREATE){
 						//System.out.println("Indexando el tweet: "+cur.get("text")+"\n");
 						writer.addDocument(doc);
@@ -86,8 +87,9 @@ public class Lucene {
 			QueryParser parser = new QueryParser("contenido",analyzer);
 			Query query = parser.parse(Artista);
 			idList = new ArrayList<String>();
-			TopDocs result = searcher.search(query,100);
+			TopDocs result = searcher.search(query,25000);
 			ScoreDoc[] hits =result.scoreDocs;
+			
 			for (int i=0; i<hits.length;i++){
 				Document doc = searcher.doc(hits[i].doc);
 				idList.add(doc.get("id"));
@@ -105,6 +107,50 @@ public class Lucene {
 		catch(ParseException ex){
 			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
 		}
+	}
+	public int indexSearch2(String Artista){
+		try{
+			IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("indice/")));
+			IndexSearcher searcher = new IndexSearcher(reader);
+			Analyzer analyzer = new StandardAnalyzer();
+			int resultados = 0;
+			QueryParser parser = new QueryParser("contenido",analyzer);
+			Query query = parser.parse(Artista);
+			idList = new ArrayList<String>();
+			TopDocs result = searcher.search(query,25000);
+			ScoreDoc[] hits =result.scoreDocs;
+			
+			for (int i=0; i<hits.length;i++){
+				Document doc = searcher.doc(hits[i].doc);
+				idList.add(doc.get("id"));
+				if((doc.get("analysis")).equals("Positive")){
+					resultados++;
+				}
+				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
+			}
+			
+			reader.close();
+			return resultados;
+			
+			
+		}
+		
+		catch(IOException ex){
+			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
+			
+		}
+		catch(ParseException ex){
+			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
+		}
+		return 0;
+	}
+	public void save(TopDocs td,String artista){
+		/*ScoreDoc[] hits =result.scoreDocs;
+		for (int i=0; i<hits.length;i++){
+			Document doc = searcher.doc(hits[i].doc);
+			idList.add(doc.get("id"));
+			System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
+		}*/
 	}
 	public List<String> getIdList(){
 		return this.idList;
