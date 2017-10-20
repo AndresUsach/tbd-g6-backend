@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/tbd-g6-backend.iml" filepath="$PROJECT_DIR$/tbd-g6-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tbd-g6-backend_main.iml" filepath="$PROJECT_DIR$/.idea/modules/tbd-g6-backend_main.iml" group="tbd-g6-backend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tbd-g6-backend_test.iml" filepath="$PROJECT_DIR$/.idea/modules/tbd-g6-backend_test.iml" group="tbd-g6-backend" />
     </modules>
   </component>
 </project>

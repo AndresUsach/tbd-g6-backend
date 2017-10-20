@@ -24,6 +24,8 @@ public class Artista implements Serializable {
 
 	private int comentariosPositivos;
 
+	private int comentariosNeutros;
+
 	private String descripcion;
 
 	private String nombre;
@@ -70,6 +72,14 @@ public class Artista implements Serializable {
 
 	public void setComentariosPositivos(int comentariosPositivos) {
 		this.comentariosPositivos = comentariosPositivos;
+	}
+
+	public int getComentariosNeutros() {
+		return comentariosNeutros;
+	}
+
+	public void setComentariosNeutros(int comentariosNeutros) {
+		this.comentariosNeutros = comentariosNeutros;
 	}
 
 	public String getDescripcion() {

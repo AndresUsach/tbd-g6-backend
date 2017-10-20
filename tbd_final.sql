@@ -32,6 +32,7 @@ CREATE TABLE `artista` (
   `idusuario` int(11) DEFAULT NULL,
   `comentarios_negativos` int(11) DEFAULT '0',
   `comentarios_positivos` int(11) DEFAULT '0',
+  `comentarios_neutros` int(11) DEFAULT '0',
   PRIMARY KEY (`idartista`),
   KEY `FKs8gk3coub0i028b8t8i52d5v` (`idgenero`),
   KEY `FK615lq1grx3igoepun0bv6b0u6` (`idusuario`),
@@ -46,7 +47,7 @@ CREATE TABLE `artista` (
 
 LOCK TABLES `artista` WRITE;
 /*!40000 ALTER TABLE `artista` DISABLE KEYS */;
-INSERT INTO `artista` VALUES (1,'El negrito de ojos claros','Ozuna',1,1,0,0),(2,'	Cantante y Actriz','Becky G',2,1,0,0),(3,'	La Criatura','Nacho',3,1,0,0),(4,'Cantante','Natti Natasha',3,1,0,0),(5,'Cantante y compositor','Danny Ocean',4,1,0,0),(6,'	Cantautor','J Balvin',3,1,0,0),(7,'	Cantautor','Romeo Santos',5,1,0,0),(8,'DJ','Alex Sensation',6,1,0,0),(9,'Rey del reguetón','Daddy Yankee',3,1,0,0),(10,'La Leyenda Viviente','Yandel',3,1,0,0);
+INSERT INTO `artista` VALUES (1,'El negrito de ojos claros','Ozuna',1,1,0,0,0),(2,'	Cantante y Actriz','Becky G',2,1,0,0,0),(3,'	La Criatura','Nacho',3,1,0,0,0),(4,'Cantante','Natti Natasha',3,1,0,0,0),(5,'Cantante y compositor','Danny Ocean',4,1,0,0,0),(6,'	Cantautor','J Balvin',3,1,0,0,0),(7,'	Cantautor','Romeo Santos',5,1,0,0,0),(8,'DJ','Alex Sensation',6,1,0,0,0),(9,'Rey del reguetón','Daddy Yankee',3,1,0,0,0),(10,'La Leyenda Viviente','Yandel',3,1,0,0,0);
 /*!40000 ALTER TABLE `artista` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,6 +63,7 @@ CREATE TABLE `genero` (
   `nombre` varchar(255) NOT NULL,
   `comentarios_negativos` int(11) DEFAULT '0',
   `comentarios_positivos` int(11) DEFAULT '0',
+  `comentarios_neutros` int(11) DEFAULT '0',
   PRIMARY KEY (`idgenero`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -72,7 +74,7 @@ CREATE TABLE `genero` (
 
 LOCK TABLES `genero` WRITE;
 /*!40000 ALTER TABLE `genero` DISABLE KEYS */;
-INSERT INTO `genero` VALUES (1,'Trap',0,0),(2,'trap',0,0),(3,'rap',0,0),(4,'reggaeton',0,0),(5,'electropop',0,0),(6,'bachata',0,0),(7,'pop latino',0,0);
+INSERT INTO `genero` VALUES (1,'Trap',0,0,0),(2,'rap',0,0,0),(3,'reggaeton',0,0,0),(4,'electropop',0,0,0),(5,'bachata',0,0,0),(6,'pop latino',0,0,0);
 /*!40000 ALTER TABLE `genero` ENABLE KEYS */;
 UNLOCK TABLES;
 

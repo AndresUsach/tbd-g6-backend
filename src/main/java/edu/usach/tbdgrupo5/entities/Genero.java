@@ -24,6 +24,8 @@ public class Genero implements Serializable {
 
 	private int comentariosPositivos;
 
+	private int comentariosNeutros;
+
 	private String nombre;
 
 	//bi-directional many-to-one association to Artista
@@ -56,6 +58,14 @@ public class Genero implements Serializable {
 
 	public void setComentariosPositivos(int comentariosPositivos) {
 		this.comentariosPositivos = comentariosPositivos;
+	}
+
+	public int getComentariosNeutros() {
+		return comentariosNeutros;
+	}
+
+	public void setComentariosNeutros(int comentariosNeutros) {
+		this.comentariosNeutros = comentariosNeutros;
 	}
 
 	public String getNombre() {

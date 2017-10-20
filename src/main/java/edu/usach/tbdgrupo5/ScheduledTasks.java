@@ -24,15 +24,13 @@ public class ScheduledTasks {
     	System.out.println("[Tarea Programada]Indexando...");
     	lucene.indexCreate();
     	System.out.println("[Tarea Programada]Fin de indexación.");
-        //System.out.println("hola fuí programado\n");
     }
     @Scheduled(cron="*/10 * * * * *")
     public void updateComments() {
     	
     	artistas= artistarepository.findAll();
     	System.out.println("[Tarea Programada]Buscando...");
-    	//lucene.indexSearch("bad bunny");
-    	//artistas.forEach(artista);
+
     	for (Artista artista:artistas){
     		lucene.indexSearch2(artista.getNombre());
     		System.out.println("Artista:"+ artista.getNombre());
@@ -41,6 +39,7 @@ public class ScheduledTasks {
     		System.out.println("Neutral: "+ lucene.getneutralResult());
     	    artista.setComentariosPositivos(lucene.getpositiveResult());
     	    artista.setComentariosNegativos(lucene.getnegativeResult());
+			artista.setComentariosNeutros(lucene.getneutralResult());
     		artistarepository.save(artista);
     	}
     	System.out.println("[Tarea Programada]Fin de bucar.");
