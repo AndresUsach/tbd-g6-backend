@@ -27,7 +27,7 @@ public class ScheduledTasks {
         //System.out.println("hola fuí programado\n");
     }
     @Scheduled(cron="*/10 * * * * *")
-    public void indexSearchTask() {
+    public void updateComments() {
     	
     	artistas= artistarepository.findAll();
     	System.out.println("[Tarea Programada]Buscando...");
@@ -39,6 +39,9 @@ public class ScheduledTasks {
     		System.out.println("Positivos: "+ lucene.getpositiveResult());
     		System.out.println("Negativos: "+ lucene.getnegativeResult());
     		System.out.println("Neutral: "+ lucene.getneutralResult());
+    	    artista.setComentariosPositivos(lucene.getpositiveResult());
+    	    artista.setComentariosNegativos(lucene.getnegativeResult());
+    		artistarepository.save(artista);
     	}
     	System.out.println("[Tarea Programada]Fin de bucar.");
     	

@@ -97,7 +97,7 @@ public class Lucene {
 			for (int i=0; i<hits.length;i++){
 				Document doc = searcher.doc(hits[i].doc);
 				idList.add(doc.get("id"));
-				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
+				//System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
 			}
 			reader.close();
 			
@@ -139,7 +139,7 @@ public class Lucene {
 				else if((doc.get("analysis")).equals("Neutral")){
 					this.neutralResult++;
 				}
-				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
+				//System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
 			}
 			
 			reader.close();
