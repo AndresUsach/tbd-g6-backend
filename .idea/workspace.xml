@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="11e7a5e2-7901-4a33-9037-ee1aae3d635d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/ScheduledTasks.java" afterPath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/ScheduledTasks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/entities/Artista.java" afterPath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/entities/Artista.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/entities/Genero.java" afterPath="$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/entities/Genero.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/application.properties" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tbd-g6-backend.iml" afterPath="$PROJECT_DIR$/tbd-g6-backend.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tbd_final.sql" afterPath="$PROJECT_DIR$/tbd_final.sql" />
     </list>
     <ignored path="$PROJECT_DIR$/bin/" />
@@ -38,8 +32,8 @@
       <file leaf-file-name="ScheduledTasks.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/ScheduledTasks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="39" column="34" lean-forward="false" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+            <state relative-caret-position="-57">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -656,12 +650,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1508474198149</updated>
-      <workItem from="1508524559277" duration="1100000" />
+      <workItem from="1508524559277" duration="1760000" />
     </task>
+    <task id="LOCAL-00001" summary="Comentarios neutros agregados a la BD y Entidades">
+      <created>1508532436911</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1508532436911</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1591000" />
+    <option name="totallyTimeSpent" value="2251000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -704,6 +706,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Comentarios neutros agregados a la BD y Entidades" />
+    <option name="LAST_COMMIT_MESSAGE" value="Comentarios neutros agregados a la BD y Entidades" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -855,8 +861,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/usach/tbdgrupo5/ScheduledTasks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="39" column="34" lean-forward="false" selection-start-line="39" selection-start-column="34" selection-end-line="39" selection-end-column="34" />
+        <state relative-caret-position="-57">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>

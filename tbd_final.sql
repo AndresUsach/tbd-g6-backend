@@ -165,3 +165,16 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2017-10-14  2:04:08
+
+delimiter //
+CREATE TRIGGER updateGenero AFTER UPDATE ON artista 
+FOR EACH ROW
+BEGIN
+
+UPDATE genero SET comentarios_negativos = comentarios_negativos + NEW.comentarios_negativos WHERE genero.idgenero = NEW.idgenero;
+UPDATE genero SET comentarios_positivos = comentarios_positivos + NEW.comentarios_positivos WHERE genero.idgenero = NEW.idgenero;
+UPDATE genero SET comentarios_neutros = comentarios_neutros + NEW.comentarios_neutros WHERE genero.idgenero = NEW.idgenero;
+
+END
+//
+delimiter ;

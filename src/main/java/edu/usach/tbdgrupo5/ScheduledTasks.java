@@ -11,7 +11,8 @@ import edu.usach.tbdgrupo5.repository.ArtistaRepository;
 import edu.usach.tbdgrupo5.rest.ArtistaService;
 
 @Component
-public class ScheduledTasks {
+public class ScheduledTasks
+{
 
 	public MongoConnection mc = new MongoConnection("tweets", "tweetsPrueba");
 	public Lucene lucene = new Lucene(mc);
@@ -19,19 +20,22 @@ public class ScheduledTasks {
 	public ArtistaRepository artistarepository ;
 	public Iterable<Artista> artistas = null;
     @Scheduled(cron="*/10 * * * * *")
-    public void indexCreateTask() {
+    public void indexCreateTask()
+	{
     	mc.connect();
     	System.out.println("[Tarea Programada]Indexando...");
     	lucene.indexCreate();
     	System.out.println("[Tarea Programada]Fin de indexación.");
     }
     @Scheduled(cron="*/10 * * * * *")
-    public void updateComments() {
+    public void updateComments()
+	{
     	
     	artistas= artistarepository.findAll();
     	System.out.println("[Tarea Programada]Buscando...");
 
-    	for (Artista artista:artistas){
+    	for (Artista artista:artistas)
+    	{
     		lucene.indexSearch2(artista.getNombre());
     		System.out.println("Artista:"+ artista.getNombre());
     		System.out.println("Positivos: "+ lucene.getpositiveResult());
