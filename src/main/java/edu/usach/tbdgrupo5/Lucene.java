@@ -38,9 +38,13 @@ import com.mongodb.DBObject;
 public class Lucene {
 	private MongoConnection mongoConnection;
 	private List<String> idList = null;
+	private int positiveResult=0;
+	private int negativeResult=0;
+	private int neutralResult=0;
 	public Lucene(MongoConnection mongoConnection){
 		this.mongoConnection = mongoConnection;
 	}
+	
 	public void indexCreate(){
 		try{
 			Directory dir = FSDirectory.open(Paths.get("indice/"));
@@ -114,6 +118,9 @@ public class Lucene {
 			IndexSearcher searcher = new IndexSearcher(reader);
 			Analyzer analyzer = new StandardAnalyzer();
 			int resultados = 0;
+			this.positiveResult=0;
+			this.negativeResult=0;
+			this.neutralResult=0;
 			QueryParser parser = new QueryParser("contenido",analyzer);
 			Query query = parser.parse(Artista);
 			idList = new ArrayList<String>();
@@ -124,7 +131,13 @@ public class Lucene {
 				Document doc = searcher.doc(hits[i].doc);
 				idList.add(doc.get("id"));
 				if((doc.get("analysis")).equals("Positive")){
-					resultados++;
+					this.positiveResult++;
+				}
+				else if((doc.get("analysis")).equals("Negative")){
+					this.negativeResult++;
+				}
+				else if((doc.get("analysis")).equals("Neutral")){
+					this.neutralResult++;
 				}
 				System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
 			}
@@ -144,17 +157,17 @@ public class Lucene {
 		}
 		return 0;
 	}
-	public void save(TopDocs td,String artista){
-		/*ScoreDoc[] hits =result.scoreDocs;
-		for (int i=0; i<hits.length;i++){
-			Document doc = searcher.doc(hits[i].doc);
-			idList.add(doc.get("id"));
-			System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
-		}*/
-	}
 	public List<String> getIdList(){
 		return this.idList;
 	}
-	
+	public int getpositiveResult(){
+		return this.positiveResult;
+	}
+	public int getnegativeResult(){
+		return this.negativeResult;
+	}
+	public int getneutralResult(){
+		return this.neutralResult;
+	}
 
 }
