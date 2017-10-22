@@ -82,37 +82,7 @@ public class Lucene {
 		}
 		
 	}
-	public void indexSearch(String Artista){
-		try{
-			IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("indice/")));
-			IndexSearcher searcher = new IndexSearcher(reader);
-			Analyzer analyzer = new StandardAnalyzer();
-			
-			QueryParser parser = new QueryParser("contenido",analyzer);
-			Query query = parser.parse(Artista);
-			idList = new ArrayList<String>();
-			TopDocs result = searcher.search(query,25000);
-			ScoreDoc[] hits =result.scoreDocs;
-			
-			for (int i=0; i<hits.length;i++){
-				Document doc = searcher.doc(hits[i].doc);
-				idList.add(doc.get("id"));
-				//System.out.println((i+1) + ".- score="+hits[i].score+" doc="+hits[i].doc+" id="+doc.get("id")+ "twee="+doc.get("contenido"));
-			}
-			reader.close();
-			
-			
-		}
-		
-		catch(IOException ex){
-			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
-			
-		}
-		catch(ParseException ex){
-			Logger.getLogger(Lucene.class.getName()).log(Level.SEVERE,null,ex);
-		}
-	}
-	public int indexSearch2(String Artista){
+	public int indexSearch(String Artista){
 		try{
 			IndexReader reader = DirectoryReader.open(FSDirectory.open(Paths.get("indice/")));
 			IndexSearcher searcher = new IndexSearcher(reader);
